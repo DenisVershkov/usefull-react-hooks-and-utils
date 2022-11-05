@@ -8,7 +8,7 @@ So, without further do, let's cut to the chase!
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState.
 
-## `Code`
+### `Code`
 
 ```typescript
 const useStickyState = <T>(defaultValue: T, key: string) => {
