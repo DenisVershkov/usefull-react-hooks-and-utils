@@ -8,7 +8,7 @@ Without further do, let's cut to the chase!
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
 
-### :pencil2: Code
+### <details><summary>:pencil2: Code</summary>
 
 ```typescript
 const useStickyState = <T>(defaultValue: T, key: string) => {
@@ -34,7 +34,7 @@ const SomeComponent() {
 ```
 It's used just like React.useState, except it takes two arguments: a default value, and a key. The second argument, key, will be used as the localStorage key. It's important that each useStickyState instance uses a unique value.
 
-### Quick typescript note
+### :bulb: Quick typescript note
 This hook is not strictly typed and simply infers the type of the value passed in.
 
 
