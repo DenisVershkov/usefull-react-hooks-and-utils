@@ -8,7 +8,7 @@ Without further do, let's cut to the chase!
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
 
-### :pencil2: `Code`
+### :pencil2: Code
 
 ```typescript
 const useStickyState = <T>(defaultValue: T, key: string) => {
@@ -25,7 +25,7 @@ const stickyValue = window.localStorage.getItem(key);
     return [value, setValue] as const;
 };
 ```
-### `Usage`
+### Usage
 
 It's used just like React.useState, except it takes two arguments: a default value, and a key:
 
@@ -57,7 +57,7 @@ try {
 
 But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. To deal with typescript we can use this little utility function:
 
-### :pencil2: `Code`
+### :pencil2: Code
 
 ```typescript
 type ErrorWithMessage = {
@@ -90,7 +90,7 @@ function getErrorMessage(error: unknown) {
 }
 ```
 
-### `Usage`
+### Usage
 ```typescript
 try {
   //some code here
