@@ -41,6 +41,8 @@ The second argument, key, will be used as the localStorage key. It's important t
 This hook is not strictly typed and simply infers the type of the value passed in.
 
 
+
+
 # `getErrorMessage`
 
 Usually developers do something like this:
@@ -53,7 +55,7 @@ try {
 }
 ```
 
-But if we use typescript, it wil yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. To deal with typescript we can use this little utility function:
+But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. To deal with typescript we can use this little utility function:
 
 ### `Code`
 
