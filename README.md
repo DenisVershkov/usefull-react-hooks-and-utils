@@ -27,15 +27,12 @@ const stickyValue = window.localStorage.getItem(key);
 ```
 ### Usage
 
-It's used just like React.useState, except it takes two arguments: a default value, and a key:
-
 ```javascript
 const SomeComponent() {
   const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
 }
 ```
-
-The second argument, key, will be used as the localStorage key. It's important that each useStickyState instance uses a unique value.
+It's used just like React.useState, except it takes two arguments: a default value, and a key. The second argument, key, will be used as the localStorage key. It's important that each useStickyState instance uses a unique value.
 
 ### `Quick typescript note`
 This hook is not strictly typed and simply infers the type of the value passed in.
