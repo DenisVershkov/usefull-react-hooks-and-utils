@@ -25,9 +25,9 @@ const stickyValue = window.localStorage.getItem(key);
     return [value, setValue] as const;
 };
 ```
-### <details><summary>:bulb: <b>Usage</b></summary>
+### <details><summary>Usage</summary>
 
-```javascript
+```js
 const SomeComponent() {
   const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
 }
@@ -45,7 +45,7 @@ This hook is not strictly typed and simply infers the type of the value passed i
 
 Usually developers do something like this:
 
-```javascript
+```js
 try {
   //some code here
 } catch (error) {
@@ -57,7 +57,7 @@ But if we use typescript, it will yield at us that the error actually has type '
 
 ### :pencil2: Code
 
-```typescript
+```ts
 type ErrorWithMessage = {
   message: string
 }
@@ -89,7 +89,7 @@ function getErrorMessage(error: unknown) {
 ```
 
 ### <details><summary>:bulb: Usage</summary>
-```typescript
+```ts
 try {
   //some code here
 } catch (error) {
