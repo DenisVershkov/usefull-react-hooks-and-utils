@@ -2,7 +2,7 @@
 
 This repository was created to help react developers optimise their codebase and figure out the way to write less boilerplate code. Most of the hooks in this repo were not created by me, they are borrowed from blogs, community resources and also from the other developers i worked with. My goal is just to accumulate knowledge and share it with others. Please note, not all hooks here are in their original form,  sometimes i made some changes to fit my goals or modified them based on what works better in my experience. So if you find any mistakes, please let me know.
 
-So, without further do, let's cut to the chase!
+Without further do, let's cut to the chase!
 
 # `useStickyState`
 
