@@ -109,5 +109,7 @@ try {
 ```
 </details>
 
+Now we can be sure that our 'catch' case handles properly because we use type safe function, which covers all failure scenario and prevents your code from unexpected collapse.
+
 </br>
 
