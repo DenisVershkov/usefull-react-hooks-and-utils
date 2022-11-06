@@ -26,8 +26,8 @@ const stickyValue = window.localStorage.getItem(key);
 };
 ```
 
-<details>
-  <summary> ### Usage example</summary>
+### <details>
+  <summary>Usage example</summary>
 
 ```js
 const SomeComponent() {
