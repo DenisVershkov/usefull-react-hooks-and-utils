@@ -4,6 +4,8 @@ This repository was created to help react developers optimise their codebase and
 
 Without further do, let's cut to the chase!
 
+</br>
+
 # `useStickyState`
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
@@ -25,6 +27,8 @@ const stickyValue = window.localStorage.getItem(key);
     return [value, setValue] as const;
 };
 ```
+
+</br>
 
 <details>
   <summary>:technologist: Usage example</summary>
@@ -91,6 +95,8 @@ function getErrorMessage(error: unknown) {
   return toErrorWithMessage(error).message
 }
 ```
+
+</br>
 
 <details>
   <summary>:technologist: Usage example</summary>
