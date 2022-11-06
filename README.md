@@ -9,7 +9,6 @@ Without further do, let's cut to the chase!
 # `useStickyState`
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
-
 </br>
 
 ### :pencil2: Code
