@@ -41,7 +41,6 @@ const SomeComponent() {
         
 It's used just like React.useState, except it takes two arguments: a default value, and a key. The second argument, key, will be used as the localStorage key. It's important that each useStickyState instance uses a unique value.
 </details>
-
 </br>
 
 ### :bulb: Quick typescript note
@@ -97,7 +96,6 @@ function getErrorMessage(error: unknown) {
   return toErrorWithMessage(error).message
 }
 ```
-
 </br>
 
 <details>
