@@ -27,7 +27,7 @@ const stickyValue = window.localStorage.getItem(key);
 ```
 
 <details>
-  <summary>:heavy_plus_sign: Usage example</summary>
+  <summary>:technologist: Usage example</summary>
 
 ```js
 const SomeComponent() {
@@ -92,7 +92,7 @@ function getErrorMessage(error: unknown) {
 ```
 
 <details>
-  <summary>### Usage example</summary>
+  <summary>:technologist: Usage example</summary>
 
 ```ts
 try {
