@@ -60,7 +60,7 @@ try {
 }
 ```
 
-But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. To deal with typescript we can use this little utility function:
+But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. getErrorMessage function gives us an ooportunity to handle this case in a simple and nice way:
 </br>
 
 ### :pencil2: Code
