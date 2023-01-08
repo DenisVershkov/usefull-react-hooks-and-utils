@@ -149,3 +149,34 @@ const [query, setQuery] = useState('') //the actual input state
 const searchQuery = useDebounce(query, 1000) //the state we can use to make a request since it is updated in 1 second after the user stops typing
 ```
 </details>
+
+</br>
+
+# `useToggle`
+
+Often when implementing new features we want to toggle something (modals, switchers, etc.), so why don't make this logic reusable?
+
+### :pencil2: Code
+
+```ts
+const useToggle = (initialValue: boolean): [boolean, (nextValue?: boolean) => void] => {
+  const [value, setValue] = useState(initialValue)
+
+  function toggle(nextValue?: boolean) {
+//we can pass an optional argument or the state simply will be changed to the opposite value
+    setValue(current => nextValue ?? !current)
+  }
+
+  return [value, toggle]
+}
+```
+
+<details>
+  <summary>:technologist: Usage example</summary>
+  </br>
+
+
+```ts
+const [on, toggle] = useToggle(true);
+```
+</details>
