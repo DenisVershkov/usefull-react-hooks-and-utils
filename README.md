@@ -113,3 +113,36 @@ Now we can be sure that our 'catch' case handles properly because we use type sa
 
 </br>
 
+# `useDebounce`
+
+I think that debounce needs no introduction, it's an indispensable helper on any front-end project, allowing us to do a lot of cool stuff, like preventing unnecessary api calls when user is typing in a search field. Here is a hook implementation:
+
+```ts
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState(value)
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebounced(value)
+    }, delay);
+
+    return () => {
+      clearTimeout(timerId)
+    }
+  }, [value, delay])
+
+  return debounced
+}
+}
+```
+
+<details>
+  <summary>:technologist: Usage example</summary>
+
+imagine we want to make a request to an api to get a list of autocomplete options:
+
+```ts
+const [query, setQuery] = useState('') //the actual input state
+const searchQuery = useDebounce(query, 1000) //the state we can use to make a request since it is updated in 1 second after the user stops typing
+```
+</details>
