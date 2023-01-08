@@ -178,5 +178,9 @@ const useToggle = (initialValue: boolean): [boolean, (nextValue?: boolean) => vo
 
 ```ts
 const [on, toggle] = useToggle(true);
+
+toggle()
+//or
+toggle(true)
 ```
 </details>
