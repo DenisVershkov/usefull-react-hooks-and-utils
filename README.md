@@ -117,6 +117,8 @@ Now we can be sure that our 'catch' case handles properly because we use type sa
 
 I think that debounce needs no introduction, it's an indispensable helper on any front-end project, allowing us to do a lot of cool stuff, like preventing unnecessary api calls when user is typing in a search field. Here is a hook implementation:
 
+### :pencil2: Code
+
 ```ts
 export function useDebounce<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value)
@@ -138,6 +140,7 @@ export function useDebounce<T>(value: T, delay: number): T {
 
 <details>
   <summary>:technologist: Usage example</summary>
+  </br>
 
 imagine we want to make a request to an api to get a list of autocomplete options:
 
