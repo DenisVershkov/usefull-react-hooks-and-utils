@@ -28,14 +28,15 @@ const stickyValue = window.localStorage.getItem(key);
     return [value, setValue] as const;
 };
 ```
+
 <details>
   <summary><h2>:technologist: Usage example</h2></summary>
-
 ```js
 const SomeComponent() {
   const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
 }
-```        
+```
+        
 It's used just like React.useState, except it takes two arguments: a default value, and a key. The second argument, key, will be used as the localStorage key. It's important that each useStickyState instance uses a unique value.
 </details>
 </br>
