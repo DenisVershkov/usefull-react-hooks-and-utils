@@ -74,7 +74,7 @@ try {
 
 But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. Utility function parseError gives us an opportunity to handle this case in a simple and secure way:
 
-### :pencil2: Code
+## :pencil2: Code
 
 ```typescript
 type ErrorWithMessage = {
@@ -168,7 +168,7 @@ Now we can be sure that our 'catch' case handles properly because we use type sa
 
 I think that debounce needs no introduction, it's an indispensable helper on any front-end project, allowing us to do a lot of cool stuff, like preventing unnecessary api calls when user is typing in a search field. Here is a hook implementation:
 
-### :pencil2: Code
+## :pencil2: Code
 
 ```typescript
 export function useDebounce<T>(value: T, delay: number): T {
@@ -204,7 +204,7 @@ const debouncedQuery = useDebounce(query, 1000); // updates with a 1 second dela
 
 Often when implementing new features we want to toggle something (modals, switchers, etc.), so why don't make this logic reusable?
 
-### :pencil2: Code
+## :pencil2: Code
 
 ```typescript
 const useToggle = (
