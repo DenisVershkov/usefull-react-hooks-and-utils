@@ -28,8 +28,6 @@ const stickyValue = window.localStorage.getItem(key);
     return [value, setValue] as const;
 };
 ```
-</br>
-
 <details>
   <summary><h2>:technologist: Usage example</h2></summary>
 
