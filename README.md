@@ -1,6 +1,6 @@
 <img src="/assets/main.jpeg" width="1920px"/>
 
-This repository was created to help react developers optimize their codebase and figure out a way to write less boilerplate code. Some of the hooks and utils in this repo were created by me, others was borrowed from blogs, community resources, and also from the other developers i worked with. My goal is just to accumulate knowledge and share it with others. Please note, not all hooks and utils here are in their original form, sometimes I made some changes to fit my goals or modified them based on what works better in my experience. So if you find any mistakes, please let me know.
+This repository was created to help react developers optimize their codebase and figure out a way to write less boilerplate code. Some of the hooks and utils in this repo were created by me, others was borrowed from blogs, community resources, and also from the other developers i worked with. My goal is just to accumulate knowledge and share it with others.
 
 </br>
 
