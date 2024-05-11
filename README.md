@@ -304,7 +304,8 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(
       }
 
       const entry = entries[0];
-      if (entry.borderBoxSize) {
+
+      if (entry?.borderBoxSize) {
         const borderBoxSize = entry.borderBoxSize[0]
           ? entry.borderBoxSize[0]
           : (entry.borderBoxSize as unknown as ResizeObserverSize);
@@ -317,6 +318,7 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(
         });
       } else {
         const target = entry.target as HTMLElement;
+
         setSize({
           width: round(target.offsetWidth, ROUND_PRESICION),
           height: round(target.offsetHeight, ROUND_PRESICION),
@@ -327,6 +329,7 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(
     const observer = new ResizeObserver(
       throttle(handleResize, RESIZE_THROTTLE)
     );
+
     observer.observe(ref.current);
 
     return () => {
