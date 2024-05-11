@@ -34,7 +34,7 @@ const stickyValue = window.localStorage.getItem(key);
         
 ```javascript
 const SomeComponent() {
-  const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
+  const [person, setPerson] = useStickyState('Some Key', 'some value');
 }
 ```
         
@@ -42,7 +42,33 @@ It's used just like React.useState, except it takes two arguments: a default val
 </details>
 
 ## :bulb: Quick typescript note
-This hook is not strictly typed and simply infers the type of the value passed in.
+The hook simply infers the type of the value passed in, but when i use it in my projects i prefer strict typization to view all the values that might be stored in the localStorage.
+
+```typescript
+/** All possible keys for usePersistedState */
+enum Keys {
+    ZoneAlert = 'disable_zone_alert_for_date',
+}
+
+/** All possible key: value pairs for usePersistedState */
+type Entries = {
+    [Keys.ZoneAlert]: ZoneAlertDefaultState;
+};
+
+const useStickyState = <T extends Entries[Keys], U extends Keys>(defaultValue: T, key: U) => {
+const [value, setValue] = React.useState<T>(() => {
+const stickyValue = window.localStorage.getItem(key);
+
+        return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+    });
+
+    React.useEffect(() => {
+        window.localStorage.setItem(key, JSON.stringify(value));
+    }, [key, value]);
+
+    return [value, setValue] as const;
+};
+```
 
 </br>
 
@@ -50,7 +76,7 @@ This hook is not strictly typed and simply infers the type of the value passed i
 
 Usually developers do something like this:
 
-```js
+```javascript
 try {
   //some code here
 } catch (error) {
