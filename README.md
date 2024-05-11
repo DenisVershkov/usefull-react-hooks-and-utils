@@ -1,6 +1,6 @@
 <img src="/assets/main.jpeg" width="1920px"/>
 
-This repository was created to help react developers optimize their codebase and figure out a way to write less boilerplate code. Some of the hooks and utils in this repo were created by me, others was borrowed from blogs, community resources, and also from the other developers i worked with. My goal is just to accumulate knowledge and share it with others.
+This repository was created to help react developers optimize their codebase and figure out a way to write less boilerplate code. Some of the hooks and utils in this repo were created by me, others was borrowed from blogs, community resources, and also from the other developers i worked with. My goal is just to accumulate knowledge and share it with others. Please note, not all hooks and utils here are in their original form, sometimes I made some changes to fit my goals or modified them based on what works better in my experience. So if you find any mistakes, please let me know.
 
 </br>
 
@@ -258,6 +258,99 @@ const [filteredRules, filter, onFilterChange] = useFilters({
 </details>
 
 The hook can easily be upgraded to persist filters to the url string,i just showed you the basic version here.
+
+</br>
+
+# `useElementSize`
+
+If you want to get the target element size, i would suggest you to take a look at 'useElementSize'
+
+## :pencil2: Code
+
+```typescript
+import React from "react";
+
+import round from "lodash/round";
+import throttle from "lodash/throttle";
+
+const RESIZE_THROTTLE = 16;
+const ROUND_PRESICION = 2;
+
+export interface UseElementSizeResult {
+  width: number;
+  height: number;
+}
+
+export function useElementSize<T extends HTMLElement = HTMLDivElement>(
+  ref: React.MutableRefObject<T | null> | null,
+  // can be used, when it is needed to force reassign observer to element
+  // in order to get correct measures. might be related to below
+  // https://github.com/WICG/resize-observer/issues/65
+  key?: string
+) {
+  const [size, setSize] = React.useState<UseElementSizeResult>({
+    width: 0,
+    height: 0,
+  });
+
+  React.useLayoutEffect(() => {
+    if (!ref?.current) {
+      return undefined;
+    }
+
+    const handleResize: ResizeObserverCallback = (entries) => {
+      if (!Array.isArray(entries)) {
+        return;
+      }
+
+      const entry = entries[0];
+      if (entry.borderBoxSize) {
+        const borderBoxSize = entry.borderBoxSize[0]
+          ? entry.borderBoxSize[0]
+          : (entry.borderBoxSize as unknown as ResizeObserverSize);
+        // ...but old versions of Firefox treat it as a single item
+        // https://github.com/mdn/dom-examples/blob/main/resize-observer/resize-observer-text.html#L88
+
+        setSize({
+          width: round(borderBoxSize.inlineSize, ROUND_PRESICION),
+          height: round(borderBoxSize.blockSize, ROUND_PRESICION),
+        });
+      } else {
+        const target = entry.target as HTMLElement;
+        setSize({
+          width: round(target.offsetWidth, ROUND_PRESICION),
+          height: round(target.offsetHeight, ROUND_PRESICION),
+        });
+      }
+    };
+
+    const observer = new ResizeObserver(
+      throttle(handleResize, RESIZE_THROTTLE)
+    );
+    observer.observe(ref.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [ref, key]);
+
+  return size;
+}
+```
+
+<details>
+  <summary><h2>:technologist: Usage example</h2></summary>
+
+```typescript
+const labelSize = useElementSize(isLabelVisible ? labelRef : null, size);
+
+const startContentSize = useElementSize(
+  isStartContentVisible ? startContentRef : null,
+  size
+);
+```
+
+</details>
 
 </br>
 
