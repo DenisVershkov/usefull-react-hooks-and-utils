@@ -148,7 +148,7 @@ export const parseError = (error: unknown) => {
 <details>
   <summary><h2>:technologist: Usage example</h2></summary>
 
-```ts
+```typescript
 try {
   //some code here
 } catch (error) {
@@ -161,6 +161,103 @@ try {
 </details>
 
 Now we can be sure that our 'catch' case handles properly because we use type safe function, which covers all failure scenario and prevents your code from unexpected collapse.
+
+</br>
+
+# `useFilters`
+
+I think every frontend engineer at least once created a page with entities filters. Hook 'useFilters' can help you perform this typical task with ease.
+
+## :pencil2: Code
+
+```typescript
+interface UseFiltersParams<T extends {}, F extends {}, O extends {}> {
+  initialData: T[];
+  initialFilters: F;
+  filterFn: (data: T[], filter: F, options?: O) => T[];
+  options?: O;
+}
+
+const useFilters = <T extends {}, F extends {}, O extends {}>(
+  params: UseFiltersParams<T, F, O>
+) => {
+  const { initialData, initialFilters, filterFn, options } = params;
+
+  const [filter, setFilter] = React.useState(initialFilters);
+  const [filteredValue, setFilteredValue] = React.useState(initialData);
+
+  React.useEffect(() => {
+    setFilteredValue(filterFn(initialData, filter, options));
+  }, [initialData, filterFn, filter, options]);
+
+  const onFilterChange = React.useCallback(
+    (currentFilter: F) => {
+      setFilteredValue(filterFn(initialData, currentFilter, options));
+    },
+    [initialData, filterFn, options]
+  );
+
+  const handleChange = React.useCallback(
+    (currentFilter: F) => {
+      setFilter(currentFilter);
+      onFilterChange(currentFilter);
+    },
+    [onFilterChange]
+  );
+
+  return [filteredValue, filter, handleChange] as const;
+};
+```
+
+<details>
+  <summary><h2>:technologist: Usage example</h2></summary>
+
+```typescript
+export const INITIAL_FILTERS: RuleFilter = {
+  tagOrDescriptionOrId: "",
+  ruleGroup: "",
+  ruleType: "",
+};
+
+export const getFilteredRules = (rules: Rule[], filters: RuleFilter) => {
+  const {
+    tagOrDescriptionOrId,
+    ruleGroup,
+    ruleType,
+    paranoiaLevel,
+    activeState,
+    blocking,
+  } = filters;
+
+  let result = rules;
+
+  if (ruleGroup) {
+    result = filterByField(result, "ruleGroup", ruleGroup);
+  }
+
+  if (ruleType) {
+    result = filterByField(result, "ruleType", ruleType);
+  }
+
+  if (tagOrDescriptionOrId) {
+    result = filterBySomeFields(
+      result,
+      ["description", "id", "tags"],
+      tagOrDescriptionOrId
+    );
+  }
+
+  return result;
+};
+
+const [filteredRules, filter, onFilterChange] = useFilters({
+  initialData: rules,
+  initialFilters: INITIAL_FILTERS_BASE,
+  filterFn: getFilteredRules,
+});
+```
+
+</details>
 
 </br>
 
