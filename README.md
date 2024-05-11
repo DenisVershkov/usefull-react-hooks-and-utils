@@ -4,7 +4,7 @@ This repository was created to help react developers optimize their codebase and
 
 Without further do, let's cut to the chase!
 
-
+</br>
 
 # `useStickyState`
 
@@ -44,7 +44,7 @@ It's used just like React.useState, except it takes two arguments: a default val
 ## :bulb: Quick typescript note
 This hook is not strictly typed and simply infers the type of the value passed in.
 
-
+</br>
 
 # `getErrorMessage`
 
