@@ -11,7 +11,7 @@ Without further do, let's cut to the chase!
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
 </br>
 
-### :pencil2: Code
+<h2>:pencil2: Code</h2>
 
 ```typescript
 const useStickyState = <T>(defaultValue: T, key: string) => {
@@ -43,7 +43,7 @@ It's used just like React.useState, except it takes two arguments: a default val
 </details>
 </br>
 
-### :bulb: Quick typescript note
+<h2>:bulb: Quick typescript note</h2> 
 This hook is not strictly typed and simply infers the type of the value passed in.
 
 </br>
