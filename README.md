@@ -213,13 +213,13 @@ const useFilters = <T extends {}, F extends {}, O extends {}>(
   <summary><h2>:technologist: Usage example</h2></summary>
 
 ```typescript
-export const INITIAL_FILTERS: RuleFilter = {
+const INITIAL_FILTERS: RuleFilter = {
   tagOrDescriptionOrId: "",
   ruleGroup: "",
   ruleType: "",
 };
 
-export const getFilteredRules = (rules: Rule[], filters: RuleFilter) => {
+const getFilteredRules = (rules: Rule[], filters: RuleFilter) => {
   const {
     tagOrDescriptionOrId,
     ruleGroup,
