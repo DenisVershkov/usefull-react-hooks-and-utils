@@ -31,7 +31,8 @@ const stickyValue = window.localStorage.getItem(key);
 
 <details>
   <summary><h2>:technologist: Usage example</h2></summary>
-```js
+        
+```typescript
 const SomeComponent() {
   const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
 }
