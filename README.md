@@ -259,6 +259,8 @@ const [filteredRules, filter, onFilterChange] = useFilters({
 
 </details>
 
+The hook can easily be upgraded to persist filters to the url string,i just showed you the basic version here.
+
 </br>
 
 # `useDebounce`
