@@ -9,7 +9,7 @@ Without further do, let's cut to the chase!
 # `useStickyState`
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
-</br>
+
 
 ## :pencil2: Code
 
@@ -32,7 +32,7 @@ const stickyValue = window.localStorage.getItem(key);
 <details>
   <summary><h2>:technologist: Usage example</h2></summary>     
         
-```js
+```javascript
 const SomeComponent() {
   const [person, setPerson] = useStickyState('Josh Comeau', 'the-creator-of-this-hook');
 }
@@ -44,7 +44,6 @@ It's used just like React.useState, except it takes two arguments: a default val
 ## :bulb: Quick typescript note
 This hook is not strictly typed and simply infers the type of the value passed in.
 
-</br>
 
 # `getErrorMessage`
 
