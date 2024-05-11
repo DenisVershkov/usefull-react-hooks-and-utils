@@ -10,22 +10,21 @@ Without further do, let's cut to the chase!
 
 There are situations when we need to persist state between sessions, which obviously leads us to deal with localSorage values. To serve this purpose i like to use hook called useStickyState:
 
-
 ## :pencil2: Code
 
 ```typescript
 const useStickyState = <T>(defaultValue: T, key: string) => {
-const [value, setValue] = React.useState<T>(() => {
-const stickyValue = window.localStorage.getItem(key);
+  const [value, setValue] = React.useState<T>(() => {
+    const stickyValue = window.localStorage.getItem(key);
 
-        return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
-    });
+    return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+  });
 
-    React.useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value));
-    }, [key, value]);
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
 
-    return [value, setValue] as const;
+  return [value, setValue] as const;
 };
 ```
 
@@ -42,6 +41,7 @@ It's used just like React.useState, except it takes two arguments: a default val
 </details>
 
 ## :bulb: Quick typescript note
+
 The hook simply infers the type of the value passed in, but when i use it in my projects i prefer strict typization to view all the values that might be stored in the localStorage.
 
 ```typescript
@@ -68,7 +68,7 @@ Usually developers do something like this:
 try {
   //some code here
 } catch (error) {
-  notify({message: error.message})
+  notify({ message: error.message });
 }
 ```
 
@@ -79,34 +79,35 @@ But if we use typescript, it will yield at us that the error actually has type '
 
 ```ts
 type ErrorWithMessage = {
-  message: string
-}
+  message: string;
+};
 
 function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   return (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error !== null &&
-    'message' in error &&
-    typeof (error as Record<string, unknown>).message === 'string'
-  )
+    "message" in error &&
+    typeof (error as Record<string, unknown>).message === "string"
+  );
 }
 
 function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
-  if (isErrorWithMessage(maybeError)) return maybeError
+  if (isErrorWithMessage(maybeError)) return maybeError;
 
   try {
-    return new Error(JSON.stringify(maybeError))
+    return new Error(JSON.stringify(maybeError));
   } catch {
     // fallback in case there's an error stringifying the maybeError
     // like with circular references for example.
-    return new Error(String(maybeError))
+    return new Error(String(maybeError));
   }
 }
 
 function getErrorMessage(error: unknown) {
-  return toErrorWithMessage(error).message
+  return toErrorWithMessage(error).message;
 }
 ```
+
 </br>
 
 <details>
@@ -116,9 +117,10 @@ function getErrorMessage(error: unknown) {
 try {
   //some code here
 } catch (error) {
-  notify({message: getErrorMessage(error)})
+  notify({ message: getErrorMessage(error) });
 }
 ```
+
 </details>
 
 Now we can be sure that our 'catch' case handles properly because we use type safe function, which covers all failure scenario and prevents your code from unexpected collapse.
@@ -157,9 +159,10 @@ export function useDebounce<T>(value: T, delay: number): T {
 imagine we want to make a request to an api to get a list of autocomplete options:
 
 ```ts
-const [query, setQuery] = useState('') //the actual input state
-const searchQuery = useDebounce(query, 1000) //the state we can use to make a request since it is updated in 1 second after the user stops typing
+const [query, setQuery] = useState(""); //the actual input state
+const searchQuery = useDebounce(query, 1000); //the state we can use to make a request since it is updated in 1 second after the user stops typing
 ```
+
 </details>
 
 </br>
@@ -171,28 +174,30 @@ Often when implementing new features we want to toggle something (modals, switch
 ### :pencil2: Code
 
 ```ts
-const useToggle = (initialValue: boolean): [boolean, (nextValue?: boolean) => void] => {
-  const [value, setValue] = useState(initialValue)
+const useToggle = (
+  initialValue: boolean
+): [boolean, (nextValue?: boolean) => void] => {
+  const [value, setValue] = useState(initialValue);
 
   function toggle(nextValue?: boolean) {
-//we can pass an optional argument or the state simply will be changed to the opposite value
-    setValue(current => nextValue ?? !current)
+    //we can pass an optional argument or the state simply will be changed to the opposite value
+    setValue((current) => nextValue ?? !current);
   }
 
-  return [value, toggle]
-}
+  return [value, toggle];
+};
 ```
 
 <details>
   <summary>:technologist: Usage example</summary>
   </br>
 
-
 ```ts
 const [on, toggle] = useToggle(true);
 
-toggle()
+toggle();
 //or
-toggle(true)
+toggle(true);
 ```
+
 </details>
