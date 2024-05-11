@@ -60,9 +60,9 @@ const useStickyState = <T extends Entries[Keys], U extends Keys>(defaultValue: T
 
 </br>
 
-# `getErrorMessage`
+# `parseError`
 
-Usually developers do something like this:
+This sounds familiar, right?
 
 ```javascript
 try {
@@ -72,14 +72,17 @@ try {
 }
 ```
 
-But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. Utility function getErrorMessage gives us an ooportunity to handle this case in a simple and nice way:
-</br>
+But if we use typescript, it will yield at us that the error actually has type 'unknown' and we can't access the 'message' property without an additional type check. Utility function parseError gives us an opportunity to handle this case in a simple and secure way:
 
 ### :pencil2: Code
 
-```ts
+```typescript
 type ErrorWithMessage = {
   message: string;
+};
+
+type ErrorWithStatus = {
+  status: number;
 };
 
 function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
@@ -91,11 +94,26 @@ function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
   );
 }
 
+function isErrorWithStatus(error: unknown): error is ErrorWithStatus {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "status" in error &&
+    typeof (error as Record<string, unknown>).status === "number"
+  );
+}
+
 function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   if (isErrorWithMessage(maybeError)) return maybeError;
 
+  if (typeof maybeError === "string" && maybeError) {
+    return new Error(maybeError);
+  }
+
   try {
-    return new Error(JSON.stringify(maybeError));
+    return new Error(
+      maybeError ? JSON.stringify(maybeError) : i18n("error.message-default")
+    );
   } catch {
     // fallback in case there's an error stringifying the maybeError
     // like with circular references for example.
@@ -103,12 +121,29 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   }
 }
 
-function getErrorMessage(error: unknown) {
+export function getErrorMessage(error: unknown) {
   return toErrorWithMessage(error).message;
 }
-```
 
-</br>
+const WELL_KNOWN_STATUSES_MAP: Record<string, string | undefined> = {
+  403: i18n("title.error-403"),
+  404: i18n("title.error-404"),
+  500: i18n("title.error-500"),
+};
+
+export const parseError = (error: unknown) => {
+  const status = isErrorWithStatus(error) ? String(error.status) : "500";
+
+  return {
+    description: getErrorMessage(error),
+    status,
+    title:
+      WELL_KNOWN_STATUS_KEYSETS_MAP[status] ||
+      i18nK("title.error-default") ||
+      "",
+  };
+};
+```
 
 <details>
   <summary>:technologist: Usage example</summary>
@@ -117,7 +152,9 @@ function getErrorMessage(error: unknown) {
 try {
   //some code here
 } catch (error) {
-  notify({ message: getErrorMessage(error) });
+  const { title, description, status } = parseError(error);
+
+  notify({ title, description, status });
 }
 ```
 
@@ -133,34 +170,30 @@ I think that debounce needs no introduction, it's an indispensable helper on any
 
 ### :pencil2: Code
 
-```ts
+```typescript
 export function useDebounce<T>(value: T, delay: number): T {
-  const [debounced, setDebounced] = useState(value)
+  const [debounced, setDebounced] = useState(value);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      setDebounced(value)
+      setDebounced(value);
     }, delay);
 
     return () => {
-      clearTimeout(timerId)
-    }
-  }, [value, delay])
+      clearTimeout(timerId);
+    };
+  }, [value, delay]);
 
-  return debounced
-}
+  return debounced;
 }
 ```
 
 <details>
   <summary>:technologist: Usage example</summary>
-  </br>
 
-imagine we want to make a request to an api to get a list of autocomplete options:
-
-```ts
-const [query, setQuery] = useState(""); //the actual input state
-const searchQuery = useDebounce(query, 1000); //the state we can use to make a request since it is updated in 1 second after the user stops typing
+```typescript
+const [query, setQuery] = useState(""); // updates without a delay
+const debouncedQuery = useDebounce(query, 1000); // updates with a 1 second delay
 ```
 
 </details>
@@ -173,7 +206,7 @@ Often when implementing new features we want to toggle something (modals, switch
 
 ### :pencil2: Code
 
-```ts
+```typescript
 const useToggle = (
   initialValue: boolean
 ): [boolean, (nextValue?: boolean) => void] => {
@@ -190,9 +223,8 @@ const useToggle = (
 
 <details>
   <summary>:technologist: Usage example</summary>
-  </br>
 
-```ts
+```typescript
 const [on, toggle] = useToggle(true);
 
 toggle();
