@@ -43,7 +43,6 @@ It's used just like React.useState, except it takes two arguments: a default val
 
 <h2>:bulb: Quick typescript note</h2> 
 This hook is not strictly typed and simply infers the type of the value passed in.
-
 </br>
 
 # `getErrorMessage`
