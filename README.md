@@ -55,19 +55,7 @@ type Entries = {
     [Keys.ZoneAlert]: ZoneAlertDefaultState;
 };
 
-const useStickyState = <T extends Entries[Keys], U extends Keys>(defaultValue: T, key: U) => {
-const [value, setValue] = React.useState<T>(() => {
-const stickyValue = window.localStorage.getItem(key);
-
-        return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
-    });
-
-    React.useEffect(() => {
-        window.localStorage.setItem(key, JSON.stringify(value));
-    }, [key, value]);
-
-    return [value, setValue] as const;
-};
+const useStickyState = <T extends Entries[Keys], U extends Keys>(defaultValue: T, key: U) => ...
 ```
 
 </br>
