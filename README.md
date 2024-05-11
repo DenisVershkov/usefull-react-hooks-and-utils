@@ -146,7 +146,7 @@ export const parseError = (error: unknown) => {
 ```
 
 <details>
-  <summary>:technologist: Usage example</summary>
+  <summary><h2>:technologist: Usage example</h2></summary>
 
 ```ts
 try {
@@ -189,7 +189,7 @@ export function useDebounce<T>(value: T, delay: number): T {
 ```
 
 <details>
-  <summary>:technologist: Usage example</summary>
+  <summary><h2>:technologist: Usage example</h2></summary>
 
 ```typescript
 const [query, setQuery] = useState(""); // updates without a delay
@@ -222,7 +222,7 @@ const useToggle = (
 ```
 
 <details>
-  <summary>:technologist: Usage example</summary>
+  <summary><h2>:technologist: Usage example</h2></summary>
 
 ```typescript
 const [on, toggle] = useToggle(true);
